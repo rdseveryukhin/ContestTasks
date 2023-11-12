@@ -19,17 +19,27 @@ end of the request.
 "..." without quotes.
 
 For example, for the request:
+
 SELECT
-	id, name
+
+id, name
+ 
 FROM users
+
 WHERE
-	family = “Petrov” and
- 	(
-  	  group_id = "1" or manager_id in ( "17, "3", "8" , "92" )
-     	);
+
+family = “Petrov” and
+ 
+(
+  
+group_id = "1" or manager_id in ( "17, "3", "8" , "92" )
+     
+);
 
 Canonical form will be:
+
 select id, name from users where family = ? and (group_id = ? ог manager_id in (...));
+
 
 Input format
 
@@ -43,31 +53,47 @@ Output Format
 Print a single line with the canonical form of the request
 
 Example 1
-Input
+
+Input:
 
 select id from tasks
+
 where query_part
+
 in ( ";" , " in ( ?, ? )",
+
 "in" )
+
 and task_owner = "Vasily";
 
-Output
+Output:
+
 select id from tasks where query part in (...) and task_owner = ?;
 
 Example 2
-Input
+
+Input:
 
 select t.id
+
 from topics t
+
 inner join readers r
+
 on r.t_id = t.id
+
 where (
+
 ifnull( t.ref, "n" ) = "a"
+
 or t.name = "messages"
+
 or t.name like "%'"
+
 );
 
-Output
+Output:
+
 select t.id from topics t inner join readers r on r.t_id = t.id where (ifnull(t.ref, ?) = ? or t.namе = ? or t.name like ?);
 
 Note

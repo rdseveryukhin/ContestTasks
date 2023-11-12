@@ -24,9 +24,9 @@ SELECT
 FROM users
 WHERE
 	family = “Petrov” and
-	(
-	  group_id = "1" or manager_id in ( "17, "3", "8" , "92" )
-	);
+ 	(
+  	  group_id = "1" or manager_id in ( "17, "3", "8" , "92" )
+     	);
 
 Canonical form will be:
 select id, name from users where family = ? and (group_id = ? ог manager_id in (...));
